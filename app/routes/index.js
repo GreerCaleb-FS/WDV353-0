@@ -1,56 +1,56 @@
-//index.js
+// routes/index.js
 const express = require("express");
 const router = express.Router();
 
-//in memory data storage
+// in-memory data storage
 const arr = [];
 
-//get all method
-("localhost:3000/api/");
+// GET ALL
 router.get("/", (req, res) => {
   res.status(200).json({ data: arr });
 });
 
-//get method by id
-router.get("/id", (req, res) => {
+// GET BY ID
+router.get("/:id", (req, res) => {
   const { id } = req.params;
   const item = arr.find((o) => o.id === id);
   if (!item) {
-    return res.status(404).json({ message: "Not Found" });
+    return res.status(404).json({ message: "Not Found", status: 404 });
   }
   res.status(200).json({ data: item });
 });
 
-//Delete method
-("localhost:3000/api/:id");
+// DELETE BY ID
 router.delete("/:id", (req, res) => {
   const { id } = req.params;
   const idx = arr.findIndex((obj) => obj.id === id);
   if (idx === -1) {
-    return res.status(404).json({ message: "Not Found" });
+    return res.status(404).json({ message: "Not Found", status: 404 });
   }
   const [removed] = arr.splice(idx, 1);
   res.status(200).json({ data: removed });
 });
 
-//Post Method
+// POST
 router.post("/", (req, res) => {
-  const { data } = req.body;
+  console.log("POST /api body:", req.body);
+  const body = req.body || {};
+  const data = body.data;
   if (data == null) {
-    return res.status(400).json({ message: "No Data provided" });
+    return res.status(400).json({ message: "No Data provided", status: 400 });
   }
   const newItem = { id: Date.now().toString(), data };
   arr.push(newItem);
   res.status(201).json({ data: newItem });
 });
 
-//Put Method
+// UPDATE BY ID
 router.put("/:id", (req, res) => {
   const { id } = req.params;
-  const { data } = req.body;
+  const { data } = req.body || {};
   const idx = arr.findIndex((o) => o.id === id);
   if (idx === -1) {
-    return res.status(404).json({ message: "Not Found" });
+    return res.status(404).json({ message: "Not Found", status: 404 });
   }
   arr[idx].data = data;
   res.status(200).json({ data: arr[idx] });
