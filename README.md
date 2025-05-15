@@ -11,3 +11,7 @@ Added logic for math (kept in string folder).
 [1.5 Video Assignment](https://youtu.be/d6Q2OWnmYIc)
 
 [1.7 Video Assignment](https://youtu.be/Tbhcx01ubto)
+
+# Module 2 Changelog
+
+[Module 2 PokeMon API](https://github.com/GreerCaleb-FS/Pokemon-Example)
